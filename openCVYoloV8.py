@@ -187,7 +187,7 @@ class Act:
         elif c == "impolite":
             text_to_speech("and you, my friend, you are the real hero")
         else:
-            text_to_speech("You are a fucking asshole")
+            text_to_speech("I can't hear you")
         self.data.input = self.data.input[1:]
 
 def text_to_speech(text):
