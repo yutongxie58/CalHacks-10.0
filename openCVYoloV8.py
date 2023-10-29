@@ -26,6 +26,7 @@ class ObjectDetection:
     def __init__(self, capture_index):
        
         self.capture_index = capture_index
+        self.prominent = None
         
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         print("Using Device: ", self.device)
@@ -39,7 +40,7 @@ class ObjectDetection:
 
     def load_model(self):
     
-        model = YOLO("yolov8l.pt")  # load a pretrained YOLOv8x model
+        model = YOLO("importedModels/yolov8x.pt")  # load a pretrained YOLOv8x model
         model.fuse()
     
         return model
@@ -100,7 +101,7 @@ class ObjectDetection:
         return most_prominent_label
         
     
-    def __call__(self, run_duration=3):
+    def scan(self, run_duration=3):
 
         cap = cv2.VideoCapture(self.capture_index)
         assert cap.isOpened()
@@ -137,8 +138,11 @@ class ObjectDetection:
                 break  
         cap.release()
         cv2.destroyAllWindows()
+        if self.prominent != None:
+            return self.prominent
+        else:
+            return object
         
-
 
 
 class Data:
@@ -159,9 +163,9 @@ class Act:
         self.data = data
     def scan(self):
         detector = ObjectDetection(capture_index=0)
-        detector(run_duration=3)
-        if detector.prominent != None:
-            self.data.output.append(detector.prominent)
+        scanResult = detector.scan(run_duration=3)
+        if scanResult:
+            self.data.output.append(scanResult)
             text_to_speech(self.data.output[0])
         else:
             text_to_speech("failed to detect object")
@@ -187,7 +191,7 @@ class Act:
         elif c == "impolite":
             text_to_speech("and you, my friend, you are the real hero")
         else:
-            text_to_speech("I can't hear you")
+            text_to_speech("I cant Hear You")
         self.data.input = self.data.input[1:]
 
 def text_to_speech(text):
@@ -219,33 +223,4 @@ def openImageClassifier():
         text_to_speech("Sorry, I couldn't understand what you said.")
     except sr.RequestError:
         text_to_speech("I'm having trouble accessing the Google Web Speech API.")
-
-
-
-
-
-    
-
-
-
-# Speech recognition
-# recognizer = sr.Recognizer()
-# try:
-
-#     with sr.Microphone() as source:
-#         text_to_speech("Say something:")
-#         recognizer.adjust_for_ambient_noise(source)  # Adjust for ambient noise
-#         audio = recognizer.listen(source, timeout=None, phrase_time_limit=3)
-
-#         text = recognizer.recognize_google(audio)  # Use Google Web Speech API
-#         data.getInput(text)
-#         act.controll()
-# except sr.UnknownValueError:
-#     text_to_speech("Sorry, I couldn't understand what you said.")
-# except sr.RequestError:
-#     text_to_speech("I'm having trouble accessing the Google Web Speech API.")
-
-
-
-        
-        
+    cv2.destroyAllWindows()
