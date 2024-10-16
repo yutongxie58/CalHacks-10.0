@@ -1,9 +1,6 @@
-# Lumio AI Glass - Enhancing Accessibility for the Visually Impaired
+<img src="https://i.postimg.cc/prSMmXy4/lumio-ai.png" alt="Poster" width="400"/>
 
-<p align="center">
-  <img src="https://i.postimg.cc/prSMmXy4/lumio-ai.png" alt="Poster" width="500"/>
-  <img src="https://i.postimg.cc/6qcLcyCb/test-out.png" alt="Testing" width="500"/>
-</p>
+# Lumio AI Glass - Enhancing Accessibility for the Visually Impaired
 
 ## Inspiration
 The inspiration for **Lumio AI Glass** was born out of a desire to make a meaningful impact on the lives of visually impaired individuals. We recognized the daily challenges faced by people with visual impairments and aimed to leverage cutting-edge technology to enhance accessibility and independence. We were inspired by the idea of creating a smart wearable device that would act as a reliable companion, providing real-time information and assistance in various aspects of life.
